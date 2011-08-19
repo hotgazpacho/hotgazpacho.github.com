@@ -1,0 +1,43 @@
+--- 
+layout: post
+title: "Continuous Improvement, Days 3 + 4: Team City ROCKS!"
+wordpress_id: 30
+wordpress_url: http://hotgazpacho.org/2009/02/continuous-improvement-days-3-4-team-city-rocks/
+date: 2009-02-12 22:47:48 -05:00
+---
+<h3>Day 3</h3>
+I gave a presentation to my team yesterday morning about Continuous Integration and how I was implementing it with TeamCity. It was intended to be a quick, 5-minute job. It ended up be a half hour discussion, a back-and-forth. My team was engaged, asking questions, and enthusiastic about what I was doing; they understood why this is a good thing. Rock on!
+
+So, I’ve really been able to step into a leadership role this week. My primary focus has been attempting to understanding a troublesome application that the client had never been satisfied with, yet the organization is now dependant upon <em>(Policies and Procedures… BIG deal in Hospital)</em>, and guiding a contractor on the changes that need to be made <em>(I guess I’ve been wearing my architect hat)</em>. It’s nice that I’ve been able to think of things at a higher level of abstraction and describe this to the programmer to that we write better code. I guess you can say I’m doing some BDD, but without the tests to verify the behavior. <em>I know, I know. Baby steps.</em>
+
+Another major project I’ve been working on involves work by an outside vendor. They keep their code in a Subversion repository. To support my team’s part of the development, I set up a <a href="http://www.visualsvn.com/server/" target="_blank">VisualSVN server</a> on our local source-control server. Working with the vendor, we set up a bunch of svn:externals in my repo to pull their stuff in. Why is this important? Well, it was this combination of externals, combined with the fact that they require different authentication than my local workstation credentials, that made setting this project up in TeamCity, um… challenging. I was able to finally get it working with <a href="http://twitter.com/maxkir/status/1201701837" target="_blank">some guidance</a> from <a href="http://kirblog.idetalk.com/" target="_blank">Kirill Maximov</a> <em>(I think of the JetBrains team)</em>. The confusion was mostly mine. Once I understood that the external files were pushed in from the external VCS, instead of the local VCS root pulling in the externals, I was able to get things working. Yay!
+<h3>Day 4</h3>
+Today started off with some fire extinguishing. At my organization, we have an SSL VPN that allows us to customize the login screens with a set of templates. Since the login screens look like they are a part of our public web site, In order to reduce the maintenance overhead, I opted to share the style sheets with the login templates. Because we have to support IE 6 <em>(the organization is still predominantly IE 6)</em>, I use <a href="http://www.quirksmode.org/css/condcom.html" target="_blank">conditional comments</a> to server an additional stylesheet to IE 6 only, that overrides the main styles. Well, a software update over the weekend caused the VPN appliance to strip <strong>all</strong> HTML comments from the templates. This, of course, broke the login pages (in that some elements overlapped the form fields, preventing people, like the Center Director, from logging remotely). We were getting nowhere fast with the vendor, so I changed the markup of the pages to use tables to mimic a 2-column grid. Fire extinguished.
+
+Next, it was off to a meeting with a client. She was overall very happy with the progress made so far, but she had some bugs she wanted to demonstrate to me. I also wanted to talk to her about her expectations for the administration part. I figured that this would be a great opportunity to try out the BDD style of describing a feature that <a href="http://cukes.info/" target="_blank">cucumber</a> promotes:
+<blockquote><strong>As a</strong>  [Role]
+<strong>I want</strong> [Feature]
+<strong>So that</strong> [Benefit]
+
+<em>(or some variant thereof)</em></blockquote>
+Once the client took me through the bugs she found, I walked her through the process of documenting the administration feature. It was great! There was this continual back and forth, and in the end, we both had a better understanding of how the feature should work. I know the process could be improved, but this was once heck of a start! I highly recommend this method to everyone.
+
+During lunch, I decided to try and capitalize on the enthusiasm my team showed for my work so far. One of the topics that came up during the team meeting was a concern that we were still using Visual SourceSafe 6 <em>(yeah, I know)</em>, which, as someone pointed out, is about 10 years old. Everyone in attendance was in agreement that we should upgrade. As I was researching upgrading to VSS 2005, I found out that this version keeps the database compatibility with VSS 6, while introducing a new workflow. One of the biggest gripes I have with VSS 6 is the Lock-Modify-Unlock (LMU) mode of operation. Very outdated, and very counter-productive, especially in the following scenario:
+<blockquote>Developer A is tasked with a non-trivial implementation of a new feature
+Developer B is tasked with fixing a bug, and traces it down to one of the files Developer A is working on.</blockquote>
+With the LMU model, either Developer A has to jump through hoops to save their work elsewhere and undo their checkout so Developer B can work, or Developer B has to wait to fix the bug until Developer A finishes their feature some time in the future. In either case, some form of merging will need to take place.
+
+VSS 2005 introduces the Copy-Modify-Merge (CMM) mode of operation more familiar to Subversion users. So, I opened a discussion with my team about enabling this option during the upgrade. There was some initial resistance, based on a perceived notion that forcing developers to talk to each other about the content of the changes to a file during a merge would somehow introduce more bugs into the code. I countered that this communication was desirable, as it forced more discussion of the code and increased the number of developers with knowledge of a given module of code. This, in turn, reduced the risk to the organization of the dreaded “hit by a bus” scenario. Plus, I proposed that we <a href="http://en.wikipedia.org/wiki/Timebox" target="_blank">timebox</a> the CMM mode of operation to a month, and analyze the results afterwards. This was enough to get the dissenters on board, and the blessing of my Team Lead and my Manager. FTW!
+
+I’m sure some of you can see where I’m going with this; Ultimately, I aim to get us out of VSS altogether, and into Subversion. Why subversion? Once we’re on the CMM model in VSS, moving to subversion will be far less of a shock than, say, <a href="http://git.or.cz/" target="_blank">git</a>. Not that git is out of the question in the future, but git hasn’t clicked for me yet <em>(I haven’t used it much yet)</em>, and I would need to train the rest of the team on git. That’s more than I can handle right now. <em>Baby steps</em>.
+
+Finally today, I followed the suggestion of TeamCity and migrated from the local HSQL database to a full-blown database server. In my case, this meant SQL Server 2005. Not exactly the smoothest ride with Integrated Windows (formerly NTLM) authentication, by which I mean no one explicitly documented the process end-to end. The key, it turns out, is to add the ntlmauth.dll to the TeamCity bin directory. Of course, after that, be sure that you change the the account that your TeamCity web service runs as to be the same user that you’re going to connect to the database with. <em>Remember, we’re talking Windows Authentication here, NOT SQL Server Authentication</em>.
+
+So, in summary:
+<ul>
+	<li>My team is wicked receptive to all the concepts I’ve introduced so far</li>
+	<li>My team includes skeptics, but <em>open-minded skeptics willing to compromise</em></li>
+	<li>TeamCity ROCKS because its not tied to a specific VCS, and there are plugins for just about any VCS</li>
+	<li>TeamCity also ROCKS because it is helping expose flaws in the structure of our projects that is making things more difficult than it needs to be</li>
+</ul>
+My plans for <del>world domination</del> <ins>improving my development team</ins> are progressing nicely.

@@ -1,0 +1,110 @@
+--- 
+layout: post
+title: "Cucumber and IronRuby: It Runs!"
+wordpress_id: 34
+wordpress_url: http://hotgazpacho.org/2009/06/cucumber-and-ironruby-it-runs/
+date: 2009-06-14 00:33:08 -04:00
+---
+<p>Ever since I read about <a href="http://cukes.info">Cucumber</a>, a user acceptance testing tool in Ruby, I’ve wanted to be able to use it, along with <a href="http://ironruby.net/">IronRuby</a> for my .Net projects. I got it working once, briefly, using the directions on the <a href="http://wiki.github.com/aslakhellesoy/cucumber/ironruby-and-net">Cucumber wiki at GitHub</a>. With an uncertain combination of IronRuby updates and Cucumber updates, it stopped working for me. Well, this evening, I decided to delve into it once again, and I am now happy to report that <strong>it works!</strong> Well, works, as in <em>runs the C# sample provided with the Cucumber gem</em>. I know present to you the steps I took to get it working, from end to end (I’ll assume you have some version of Visual Studio 2008 with C#):</p>  <h3>1 – Install MSysGit</h3>  <p>Head on over the the <a href="http://code.google.com/p/msysgit/downloads/list">MSysGit page</a>, grab the latest Git-1.6.x.y install, and run it. <em>At the time of this writing, I’m using 1.6.2.2-preview20090408</em></p>  <h3>2 – Grab the IronRuby sources</h3>  <p>I prefer to do all my development work in C:\Development. Pop open a Git Bash console (Start &gt; Programs &gt; Git &gt; Git Bash) and issue the following commands:</p>  <blockquote>   <pre>cd /C/Development
+git clone git://github.com/ironruby/ironruby.git
+git pull</pre>
+</blockquote>
+
+<p><strong>OR, if you're behind a corporate firewall…</strong></p>
+
+<blockquote>
+  <pre>cd /C/Development
+git clone http://github.com/ironruby/ironruby.git
+git pull</pre>
+</blockquote>
+
+<h3>3 – Set Up IronRuby Dev Environment</h3>
+
+<p>This comes straight from the <em><a href="http://wiki.github.com/ironruby/ironruby/devbat">dev.bat entry in the IronRuby wiki on GitHub</a></em>:</p>
+
+<blockquote>
+  <p>We recommend you start your developing by running<code>C:\path\to\Merlin\Main\Languages\Ruby\Scripts\Dev.bat</code>. This batch file sets up the path, various environment variables, and aliases, which makes it easy to do builds and run tests.</p>
+
+  <p>It is recommended to setup a shortcut to Dev.bat on the desktop that you can just click to quickly get the pre-configured environment. To do this, create a shortcut on the Desktop to cmd.exe (where C:\Development\ironruby is the root of your GIT repo) looking like CmdShortcut.png at <a href="http://www.ironruby.net/Support/Images">http://www.ironruby.net/Support/Images</a>. The values of the text fields should be like this:</p>
+
+  <p>Target: <code>C:\Windows\System32\cmd.exe /k &quot;c:\Development\IronRuby\Merlin\Main\Languages\Ruby\Scripts\Dev.bat&quot;</code></p>
+
+  <p>Start in: <code>c:\Development\IronRuby\Merlin\Main\Languages\Ruby</code></p>
+</blockquote>
+
+<p>I highly recommend reading the rest of that wiki entry. It explains how the IronRuby sources are laid out.</p>
+
+<p>I’m also made a change to Dev.bat. On line 43, after :EnvDone, the script changes the path. I’m going to prepend the path to the IronRuby interpreter, which we’ll compile in the next step. Why prepend? Well, I also have MRI in my path, and I found that the commands in C:\Ruby\bin were getting called instead of the IronRuby versions. <em>This is what I believe was leading to all the difficulties I had in the past.</em> So, the call to SET PATH should look something like this: <code>set PATH=%MERLIN_ROOT%\Bin\debug;%PATH%;%MERLIN_ROOT%\Languages\Ruby\Scripts;%MERLIN_ROOT%\Languages\Ruby\Scripts\bin;%RUBY18_BIN%;%MERLIN_ROOT%\..\External.LCA_RESTRICTED\Languages\IronRuby\mspec\mspec\bin</code></p>
+
+<h4>Addendum - June 14th, 2009</h4>
+
+<p>After <a href="http://rubyforge.org/pipermail/ironruby-core/2009-June/004779.html">some feedback on this post</a> from <a href="http://blog.jimmy.schementi.com/">Jimmy Schementi</a> and <a href="http://blog.jredville.com/">Jim Deville</a> of the IronRuby team, you’re going to want to set another environment variable, called GEM_BIN. We will reference this variable later, when we go to install gems for IronRuby. After the line that sets GEM_PATH, about line 16, you want to include this additional line: <code>set GEM_BIN=%MERLIN_ROOT%\Languages\Ruby\Scripts\Bin</code></p>
+
+<p>Adding this will allow us to tell Ruby Gems where to put the scripts needed to run cucumber, or any other gem. I’ve chosen %MERLIN_ROOT%\Languages\Ruby\Scripts\Bin, on Jimmy’s suggestion, because it is already in the path set by Dev.bat, and IronRuby distributes a number of other wrapper scripts, such as igem, irake, and irails in this directory.</p>
+
+<h3>4 - Compile IronRuby</h3>
+
+<p>Pop open the IronRuby Development console <em>(the shortcut you created in the previous step)</em>, and run <code>brbd</code> (Build RuBy Debug).</p>
+
+<h3>5 – Install the Cucumber Gem</h3>
+
+<p>IronRuby comes with a command called <em>igem</em>, which runs the <em>gem</em> command using IronRuby, as opposed to the standard MRI. In that same development console, run: <code>igem install –-no-rdoc -–no-ri –-bindir %GEM_BIN% cucumber</code></p>
+
+<p>That’s a lot to type! We could stick all these options into a .gemrc file in our home directory, but this is problematic if you have and use multiple versions of Ruby on your machine <em>(and you most likely will)</em>. Any suggestions for accommodating the scenario of multiple Ruby versions with seperate Gem locations would be very much appreciated! Now, back to the show!</p>
+
+<p>I’m choosing to include the <code>–-no-rdoc</code> and <code>-–no-ri</code> because RDoc and RI generation is slooooow, and I can’t recall the last time I looked at either.</p>
+
+<p>I’m also passing the <code>–-bindir</code> argument so that the wrapper scripts for the gems I install will be placed into a directory that is in my path, but will not get overwritten every time I recompile IronRuby.</p>
+
+<p>This will install the gem files into <code>C:\Development\ironruby\Merlin\External.LCA_RESTRICTED\Languages\Ruby\redist-libs\ironruby\gems\1.8\gems\cucumber-xxxx</code>, where xxxx is the latest version of Cucumber. <em>I'm going to use cucumber-xxxx in the next step to signify the folder that cucumber gets installed into.</em></p>
+
+<p>This will also install the <code>cucumber &amp; cucumber.bat</code> wrapper scripts into <code><strike>C:\Development\ironruby\Merlin\Main\Bin\debug</strike>C:\Development\ironruby\Merlin\Main\Languages\Ruby\Scripts\Bin</code></p>
+
+<h3>6 – Verify that it Works</h3>
+
+<p>Here comes the cool part. In that same IronRuby dev console window, do the following:</p>
+
+<blockquote>
+  <pre>cd C:\Development\ironruby\Merlin\External.LCA_RESTRICTED\Languages\Ruby\redist-libs\ironruby\gems\1.8\gems\cucumber-xxxx\examples\cs
+compile.bat
+cucumber features</pre>
+</blockquote>
+
+<p>This is the output that I got:</p>
+
+<blockquote>
+  <pre>*** WARNING: You must &quot;gem install win32console&quot; (1.2.0 or higher) to get colour
+ed output on MRI/Windows
+Feature: Addition
+  In order to avoid silly mistakes
+  As a math idiot
+  I want to be told the sum of two numbers
+
+unknown:0: warning: multiple values for a block parameter (2 for 1)
+unknown:0: warning: multiple values for a block parameter (2 for 1)
+  Scenario Outline: Add two numbers                    # features/addition.feature:6
+unknown:0: warning: multiple values for a block parameter (2 for 1)
+    Given I have entered <input_1> into the calculator # features/step_definitons/calculator_steps.rb:9
+unknown:0: warning: multiple values for a block parameter (2 for 1)
+    And I have entered <input_2> into the calculator   # features/step_definitons/calculator_steps.rb:9
+unknown:0: warning: multiple values for a block parameter (2 for 1)
+    When I press add                                   # features/step_definitons/calculator_steps.rb:13
+unknown:0: warning: multiple values for a block parameter (2 for 1)
+    Then the result should be <output> on the screen   # features/step_definitons/calculator_steps.rb:17
+
+    Examples:
+      | input_1 | input_2 | output |
+      | 20      | 30      | 50     |
+      | 2       | 5       | 7      |
+      | 0       | 40      | 40     |
+
+3 scenarios (3 passed)
+12 steps (12 passed)
+0m3.734s</output></input_2></input_1></pre>
+</blockquote>
+
+<p>Notice that there are still some warnings. I know <a href="http://www.iunknown.com/">John Lam</a> and the rest of <a href="http://ironruby.net/About/People">the IronRuby team</a> are working hard for to get this working for the <a href="http://en.oreilly.com/oscon2009/public/schedule/detail/7965">1.0 release, due on or about July 23rd, 2009</a>. Most importantly, though, it functions now. Cool beans!</p>
+
+<h3><strike>SUPER</strike> KIND-OF IMPORTANT NOTE!</h3>
+
+<p>Any time you rebuild IronRuby, the C# compiler will erase the contents of the directory <code>C:\Development\IronRuby\Merlin\Main\Bin\Debug</code>. This includes the cucumber and cucumber.bat files. <strike>The only way I know to rectify this is to </strike><code><strike>igem install -–no-rdoc -–no-ri cucumber</strike></code><strike> once again.</strike> Thanks to feedback from the IronRuby team, I’ve detailed a fix above. You will only have to install gems once, regardless of how often you recompile IronRuby.</p>
