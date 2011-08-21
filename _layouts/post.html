@@ -1,0 +1,32 @@
+{% include head.html %}
+<body>
+
+  <div id="container">
+    <header>
+      <img src="/img/gotta_wear_shades.jpg" width="1200" height="180" alt="Future's so bright, I gotta wear shades..." />
+      <h1>hotgazpacho</h1>
+      <p class="tagline">You hippie coder! Get off my dynamic lawn!</p>
+    </header>
+    <h1>{{ page.title }}</h1>
+    <div id="main" role="main">
+      {{ content }}
+    </div>
+    <footer>        
+      <h3>Site Pages</h3>
+      <ul>
+        <li><a href="/" rel="home">Home</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+      <h3>Blog Posts</h3>          
+      <ul>
+        {% for post in site.posts %}
+          <li{% if page.url == post.url %} class="active"{% endif %}><a href="{{ post.url }}">{{ post.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </footer>
+  </div> <!--! end of #container -->
+{% include scripts.html %}	        
+{% include analytics.html %}
+{% include chromeframe.html %}
+</body>
+</html>
