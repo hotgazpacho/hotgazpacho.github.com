@@ -2,7 +2,6 @@
 layout: default
 title: hotgazpacho
 ---
-# Movin' to github&hellip;
-&hellip; I'm in the process of moving this blog to github. Many of my
-posts are broken, but I'm working on fixing them. Promise.
-I'm also working on a new design.
+# Moved to github&hellip;
+&hellip;I'moved this blog to github. Some of my posts' formatting are broken, 
+but I'm working on fixing them. If you find one that is, drop me an email and I'll add it to the queue!
