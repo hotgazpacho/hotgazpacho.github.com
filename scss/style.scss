@@ -31,6 +31,18 @@
     }
   }
 }
+#home {
+  overflow: auto;
+  width: 100%;
+  #main {
+    float: left;
+    width: 68%;
+  }
+  #sidebar {
+    float: right;
+    width: 30%;
+  }
+}
 
 @import "non-semantic-helpers";
 @import "responsive";
