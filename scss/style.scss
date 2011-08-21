@@ -8,6 +8,8 @@
 // get to work
 #container {
   @include container;
+  width: auto;
+  max-width: 1200px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
   font-weight: 300;
   header {
@@ -30,17 +32,29 @@
       font-style: italic;
     }
   }
+  #main {
+    padding: 0 1em;
+  }
+  footer {
+    background-color: #E0DDDD;
+    padding: 0.3em 1em;
+    margin-top: 2em;
+  }
 }
+
 #home {
   overflow: auto;
   width: 100%;
   #main {
     float: right;
-    width: 73%;
+    width: 70%;
+    padding-right: 0.75em;
   }
   #sidebar {
     float: left;
     width: 25%;
+    min-width: 200px;
+    padding-left: 0.75em;
   }
 }
 
