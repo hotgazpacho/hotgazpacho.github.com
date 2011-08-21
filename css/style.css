@@ -327,7 +327,7 @@ blockquote {
   border-left: solid 4px #333;
   background: #eee;
   margin: 15px 30px 0 10px;
-  padding-left: 20px;
+  padding: 0.15em 1em;
 }
 
 blockquote.tweet img {
