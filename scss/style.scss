@@ -6,10 +6,14 @@
    ========================================================================== */
 
 // get to work
+body {
+  background-color: #5c5c5c;
+}
 #container {
   @include container;
+  background-color: #fff;
   width: auto;
-  max-width: 1200px;
+  max-width: 1020px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
   font-weight: 300;
   header {
@@ -52,7 +56,7 @@
   }
   #sidebar {
     float: left;
-    width: 25%;
+    width: 24%;
     min-width: 200px;
     padding-left: 0.75em;
   }
