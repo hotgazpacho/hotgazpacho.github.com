@@ -8,6 +8,28 @@
 // get to work
 #container {
   @include container;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
+  font-weight: 300;
+  header {
+    position: relative;
+    color: white;
+    border: 1px solid #666666;
+    border-top: 0px;
+    h1 {
+      font-size: 28pt;
+      position: absolute;
+      bottom: 5px;
+      left: 8px;
+      margin: 0;
+    }
+    .tagline {
+      position: absolute;
+      top: 0px;
+      left: 10px;
+      font-size: 9pt;
+      font-style: italic;
+    }
+  }
 }
 
 @import "non-semantic-helpers";
