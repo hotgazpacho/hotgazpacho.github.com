@@ -71,17 +71,17 @@ Most of my code goes into the following folder: C:\Development. Assuming this di
 	<li><code>rails myapp</code></li>
 </ol>
 <h4>9 - Grab the latest Rails from github</h4>
-This is where msysgit comes in. Fire up Git Bash, and:
+<p>This is where msysgit comes in. Fire up Git Bash, and:</p>
 <ol>
 	<li><code>cd /c/Development/myapp/vendor</code></li>
 	<li><code>git clone git://github.com/rails/rails.git</code></li>
 </ol>
 <h4>10 – web.config</h4>
-The IIS team, under <a href="http://weblogs.asp.net/scottgu/" target="_blank">Scott Guthrie</a> <em>(also oversees ASP.Net, particularly ASP.Net MVC)</em>, have done some awesome stuff in the last couple years. They have turned IIS 7 into, in the words of <a href="http://www.coreyhaines.com/" target="_blank">Software Journeyman Corey Haines</a>, “A respectable web server”. I agree. IIS 7 is a lot more like Apache than it ever used to be, and I think this is a good thing.
+<p>The IIS team, under <a href="http://weblogs.asp.net/scottgu/" target="_blank">Scott Guthrie</a> <em>(also oversees ASP.Net, particularly ASP.Net MVC)</em>, have done some awesome stuff in the last couple years. They have turned IIS 7 into, in the words of <a href="http://www.coreyhaines.com/" target="_blank">Software Journeyman Corey Haines</a>, “A respectable web server”. I agree. IIS 7 is a lot more like Apache than it ever used to be, and I think this is a good thing.</p>
 
-One of the nice things is that you can now move a bunch of your web server configuration into a web.config file in your application. That means you can add it to version control :)
+<p>One of the nice things is that you can now move a bunch of your web server configuration into a web.config file in your application. That means you can add it to version control :)</p>
 
-ASP.Net programmers will be intimately familiar with this file. Everyone else can think of this file as the equivalent of Apache’s .htaccess files. In our case, we’ll use the following web.config to configure both the FastCGI handler <em>and</em> the URL Rewrite rules:
+<p>ASP.Net programmers will be intimately familiar with this file. Everyone else can think of this file as the equivalent of Apache’s .htaccess files. In our case, we’ll use the following web.config to configure both the FastCGI handler <em>and</em> the URL Rewrite rules:</p>
 <pre lang="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;rule name="Rewrite app_offline.html if file exists" stopProcessing="true"&gt;
   &lt;match url="^.*$" ignoreCase="false" /&gt;
@@ -92,18 +92,18 @@ ASP.Net programmers will be intimately familiar with this file. Everyone else ca
   &lt;/conditions&gt;
   &lt;action type="Rewrite" url="/app_offline.html" /&gt;
 &lt;/rule&gt;</pre>
-So, let me explain what is going on here. First, the handlers section. This is where we set it up so that the FastCGI handler will process requests for dispatch.fcgi with the ruby interpreter, and run myapp in development mode. To run in production, simply replace <em>development</em> with <em>production</em>.
+<p>So, let me explain what is going on here. First, the handlers section. This is where we set it up so that the FastCGI handler will process requests for dispatch.fcgi with the ruby interpreter, and run myapp in development mode. To run in production, simply replace <em>development</em> with <em>production</em>.</p>
 
-The next section is the URL Rewrite section. As you can see, it is much more, um, <em>expressive</em> than Apache’s syntax. Anyway, another cool thing Microsoft has done with IIS7 and the URL Rewrite module is an Import function. This allows you to import your existing mod_rewrite rules into their format. Cool! So, that’s what I did. I took some existing mod_rewrite rules for FastCGI, and popped it in to the UI to get the markup above.
+<p>The next section is the URL Rewrite section. As you can see, it is much more, um, <em>expressive</em> than Apache’s syntax. Anyway, another cool thing Microsoft has done with IIS7 and the URL Rewrite module is an Import function. This allows you to import your existing mod_rewrite rules into their format. Cool! So, that’s what I did. I took some existing mod_rewrite rules for FastCGI, and popped it in to the UI to get the markup above.</p>
 
-You’ll notice a section that is commented out. That is an attempt to get the app_offline.html file working. That is, if the file exists, your app is in maintenance mode, and all requests for any Rails route should instead have this served up. I wasn’t able to get this working. Perhaps someone can take a look at it with fresh eyes.
+<p>You’ll notice a section that is commented out. That is an attempt to get the app_offline.html file working. That is, if the file exists, your app is in maintenance mode, and all requests for any Rails route should instead have this served up. I wasn’t able to get this working. Perhaps someone can take a look at it with fresh eyes.</p>
 <h4>11 – Set up web site in IIS</h4>
-This one is crazy simple. Create a new website, with the physical path set to the public directory of your Rails app. So, in our case, that would be: <code>C:\Development\myapp\public</code>
+<p>This one is crazy simple. Create a new website, with the physical path set to the public directory of your Rails app. So, in our case, that would be: <code>C:\Development\myapp\public</code></p>
 
-There is one more thing that I do, but I don’t know if it necessary. For the Application Pool that was created for this site, I change the “.Net Framework Version” to “No Managed Code”. The Rails app is not a .Net app, so I see no reason to turn on managed code for this app.
+<p>There is one more thing that I do, but I don’t know if it necessary. For the Application Pool that was created for this site, I change the “.Net Framework Version” to “No Managed Code”. The Rails app is not a .Net app, so I see no reason to turn on managed code for this app.</p>
 
-<a href="http://hotgazpacho.org/wp-content/uploads/2009/02/rails2-3-0iis7apppool.png"><img style="display: inline; border-width: 0px;" title="Rails-2_3_0-IIS7-AppPool" src="http://hotgazpacho.org/wp-content/uploads/2009/02/rails2-3-0iis7apppool-thumb.png" border="0" alt="Rails-2_3_0-IIS7-AppPool" width="644" height="377" /></a>
+<a href="/img/2009/02/rails2-3-0iis7apppool.png"><img style="display: inline; border-width: 0px;" title="Rails-2_3_0-IIS7-AppPool" src="/img/2009/02/rails2-3-0iis7apppool-thumb.png" border="0" alt="Rails-2_3_0-IIS7-AppPool" width="644" height="377" /></a>
 
-That's about it! No, seriously. It is that easy. Don’t believe me? Open up a web browser and go to the web site you created (localhost for me). Click on “<a href="http://localhost/rails/info/properties">About your application’s environment</a>”, wait a bit for the FastCGI process to spin up, and voila:
+<p>That's about it! No, seriously. It is that easy. Don’t believe me? Open up a web browser and go to the web site you created (localhost for me). Click on “<a href="http://localhost/rails/info/properties">About your application’s environment</a>”, wait a bit for the FastCGI process to spin up, and voila:</p>
 
-<a href="http://hotgazpacho.org/wp-content/uploads/2009/02/rails2-3-0iis7.png"><img style="display: inline; border-width: 0px;" title="Rails-2_3_0-IIS7" src="http://hotgazpacho.org/wp-content/uploads/2009/02/rails2-3-0iis7-thumb.png" border="0" alt="Rails-2_3_0-IIS7" width="660" height="461" /></a>
+<a href="/img/2009/02/rails2-3-0iis7.png"><img style="display: inline; border-width: 0px;" title="Rails-2_3_0-IIS7" src="/img/2009/02/rails2-3-0iis7-thumb.png" border="0" alt="Rails-2_3_0-IIS7" width="660" height="461" /></a>
