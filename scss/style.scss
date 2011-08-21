@@ -20,6 +20,15 @@ blockquote.tweet {
     margin: 0px 1em 0px 0px;
   }
 }
+q:lang(en) {
+  quotes: "«" "»" "'" "'";
+  &:before {
+    content: open-quote;
+  }
+  &:after {
+    content: close-quote;
+  }
+}
 #container {
   @include container;
   background-color: #fff;
@@ -38,6 +47,14 @@ blockquote.tweet {
       bottom: 5px;
       left: 8px;
       margin: 0;
+      a {
+        text-decoration: none;
+        color: #fff;
+        &:hover {
+          text-decoration: underline;
+          color: #dde;
+        }
+      }
     }
     .tagline {
       position: absolute;

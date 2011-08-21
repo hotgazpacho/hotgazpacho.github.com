@@ -334,6 +334,16 @@ blockquote.tweet img {
   margin: 0px 1em 0px 0px;
 }
 
+q:lang(en) {
+  quotes: "«" "»" "'" "'";
+}
+q:lang(en):before {
+  content: open-quote;
+}
+q:lang(en):after {
+  content: close-quote;
+}
+
 #container {
   width: 950px;
   margin: 0 auto;
@@ -357,6 +367,14 @@ blockquote.tweet img {
   bottom: 5px;
   left: 8px;
   margin: 0;
+}
+#container header h1 a {
+  text-decoration: none;
+  color: #fff;
+}
+#container header h1 a:hover {
+  text-decoration: underline;
+  color: #dde;
 }
 #container header .tagline {
   position: absolute;
