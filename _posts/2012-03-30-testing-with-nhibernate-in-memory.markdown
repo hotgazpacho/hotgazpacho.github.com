@@ -2,6 +2,14 @@
 layout: post
 title: "Testing with NHibernate in-memory using SQLite"
 ---
+## Background
+
+At work, we've settled on an MVP, passive view pattern for the WinForms app we work on. This works great, because it gets all the important stuff into a Presenter that we can easily test. After implementing a couple dozen of these presenters, I've notcied common patterns and dependencies emerge within the presenters. Inspired by Ayende's recent string of posts on limiting abstractions, I decided to revisit what we do in the presenters, what sorts of infrastructure they provide, and how we can make it faster and easier to create new presenters.
+
+The first thing I'm looking at is NHibernate. I've tried numerous means of abstracting it away (PersistenceConversation, Reporsitories, etc.). They all help with testing, but at the expense of application performance. I've finally convinced myself that they're not providing the value they should. So, I've decided to embrace the fact that I'm using NHibernate, and take full advantage of all the facilities it provides. That, of course, means we're coupled to a database. 
+
+## Testing with NHibernate In-Memory
+
 Testing against a SQL Server database is slow. SQLite is fast. SQLite in-memory is really fast. So fast, you can recreate all the tables in your db from your mapping files, ensuring a blank slate for your tests. Unfortunately, SQLite creates a new, blank database everytime you open a new session or stateless session. That is, each session opening seems to open a new IDbConnection, which resulted in a blank db. I could not, for the life of me, figure out how to get connection pooling to happen. Maybe it's not supported with SQLite.
  
 This is an issue for two reasons:
