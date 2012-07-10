@@ -37,7 +37,7 @@ Fortunately, the Form class has an event to let us know that a Handle has been c
     
 Then, we hook into the form's HandleCreated event so we can create a new, valid ControlScheduler instance when we need to:
 
-    HandleCreated += (s,e) {
+    HandleCreated += (s,e) => {
         Scheduler = new ControlScheduler(this);
         OnReady.Raise(Scheduler);
     };
