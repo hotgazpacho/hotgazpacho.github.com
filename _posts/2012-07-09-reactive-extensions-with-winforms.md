@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using the Reactive Extensions with WinForms"
-published: false
+published: true
 ---
 ## Background
 
@@ -50,7 +50,7 @@ Pretty self-explanatory. Remove the call to ObserveOn in the Event Aggregator's 
         return GetEvent<TEvent>().Subscribe(onEvent);
     }
 
-### Step 3 - Use !Scheduler.Schedule for Complex UI updates
+### Step 3 - Use IScheduler.Schedule for Complex UI updates
 
 Typically, you can use an extension method, [like the one Derick Bailey recommended to me](http://lostechies.com/derickbailey/2011/01/24/asynchronous-control-updates-in-c-net-winforms/) to ensure that you can safely update UI controls from the non-UI thread. In some cases, though, this is simply not enough. The specific case that caused me trouble was [BindingList<T>](http://msdn.microsoft.com/en-us/library/ms132679.aspx), specifically when it raised [ListChangedEvent](http://msdn.microsoft.com/en-us/library/ms132742.aspx). This could potentially happen on a background thread, which would result in cross-thread exceptions. I solved this by setting [RaiseListChangedEvents](http://msdn.microsoft.com/en-us/library/ms132728.aspx) to false for my binding list, updating the list, then using the IScheduler instance to raise ListChangedEvents on the UI thread:
 
