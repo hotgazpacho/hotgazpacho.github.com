@@ -58,4 +58,3 @@ Typically, you can use an extension method, [like the one Derick Bailey recommen
     
 And there you have it! I hope someone else finds this useful, since most people using RX seem to be doing it with WPF and not WinForms.
 
-<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
