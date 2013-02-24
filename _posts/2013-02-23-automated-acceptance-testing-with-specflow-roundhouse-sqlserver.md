@@ -58,8 +58,10 @@ We can do better.
 Can we pay the restore & migrate penalty just once? Sure can! 
 How can we do that while providing a clean database for each scenario?
 
-We use SQL Server. SQL Server provides the ability to [Detach and Attach the data files](http://msdn.microsoft.com/en-us/library/ms190794.aspx) for a database. We could restore & migrate an example database once, detach it, copy the data files to another location, and reattach the example in a BeforeTestRun hook. Then, we can use the BeforeScenario hook and information conatined in the [ScenarioContext](https://github.com/techtalk/SpecFlow/wiki/ScenarioContext) to copy the template MDF to a new file and attach that as a new database specifically for the scenario. This is **orders of magnitude faster** than the restore & migrate method.
+We use SQL Server. SQL Server provides the ability to [Detach and Attach the data files](http://msdn.microsoft.com/en-us/library/ms190794.aspx) for a database. We could restore & migrate an example database once, detach it, copy the data files to another location, and reattach the example in a BeforeTestRun hook. Then, we can use the BeforeScenario hook and information conatined in the [ScenarioContext](https://github.com/techtalk/SpecFlow/wiki/ScenarioContext) to copy the template MDF to a new file and attach that as a new database specifically for the scenario. This is **orders of magnitude faster** than the restore & migrate method. We can then clean up the databases in the AfterScenario hooks, and clean up everything in the AfterTestRun hook.
 
-Here's the code to do this:
+And what about NHibernate? Creating the SessionFactory is an expensive (though not nearly as expensive as the database itself) operation. We only want to do this once, but we need to be able to switch the connection string we use for each scenario. No problem! NHibernate provides a ton of hooks into the system, and [this article on NHForge](http://nhforge.org/wikis/howtonh/dynamically-change-user-info-in-connection-string.aspx) describes the approach to varying the connection string.  
+
+Put it all together, and here's the code:
 
 <script src="https://gist.github.com/hotgazpacho/5022723.js"></script>
