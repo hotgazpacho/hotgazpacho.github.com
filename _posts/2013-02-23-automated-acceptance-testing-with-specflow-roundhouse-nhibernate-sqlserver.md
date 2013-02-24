@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 ---
 
 #Automated Acceptance Testing with SpecFlow, RoundhousE, NHibernate, & SQL Server
