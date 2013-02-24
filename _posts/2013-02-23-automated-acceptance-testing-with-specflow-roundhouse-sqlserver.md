@@ -20,6 +20,26 @@ We can do better.
     	As a developer
     	I want to automate the execution of the acceptance tests
 
+###What about RoundhousE?
+
 As I mentioned, the application that my team works on is a *very* legacy application. It was initially authored in a database-first style; data transfer objects were generated from the schema. We've put a halt to this practice, but it was in use for almost 7 years before that. Suffice it to say that, in addition to the legacy code, we are left with a substantial legacy database. One of the first things I did when I joined the team was to get the schema under source control. 
 
 Having dabbled in Rails, I loved the idea of having a set of database migrations that evolved the schema of the database over time. I chose to use [RoundhousE](https://github.com/chucknorris/roundhouse/wiki), because it uses native SQL to express the migrations. I also liked that it could create a new database by first restoring a SQL Server backup, then playing the migrations over that. This allowed me to draw a line in the sand; from the time of the backup I took forward, all changes to the database schema would be expressed as migration scripts and stored with the source code to the application.
+
+This has worked out *extremely* well for us. No more having to use the Visual Studio schema compare tools to keep the multitude of client databases in synch. It has also allowed us to include automated tests for the persistence of our entities (via NHibernate), so we know fairly quickly if a code change to an entity, or a database schema change, will cause the application to fail.
+
+###Back to SpecFlow
+
+Alright, so we're automating our acceptance tests. To have a reasonable level of confidence, we need to test with as complete a stack as is feasible. We're going to skip testing against the UI. From *[7 Deadly Sins of Automated Software Testing](http://www.agileengineeringdesign.com/2012/01/7-deadly-sins-of-automated-software-testing/)* by Dr Adrian Smith:
+> Although automated UI tests provide a high level of confidence, they are expensive to build, slow to execute and fragile to maintain.... UI based tests should only be used when the UI is actually being tested or there is no practical alternative.
+
+In other words:
+
+![It's a trap!](http://laughingsquid.com/wp-content/uploads/its-a-trap-20100127-143341.jpg "It's a trap!")
+
+That's all well and good, but doesn't the [Cucumber wiki](https://github.com/cucumber/cucumber/wiki/Given-When-Then) direct us to **observe outcomes**? It does, in fact:
+
+>The observations should be related to the business value/benefit in your feature description. The observations should also be on some kind of output – that is something that comes out of the system (report, user interface, message) and not something that is deeply buried inside it (that has no business value).
+
+How are we going to accomplish this without testing the UI? Well, for new features, we're implementing screens using the [Supervising Controller pattern](http://martinfowler.com/eaaDev/SupervisingPresenter.html). All user gestures are forwarded (via .NET events that take on the role of the domain, NOT the UI) to a controller, which processes the input and directs the view (the controller holds a reference to the view, via an Interface) to change in response. That is, we follow the ["Tell, don't ask"](http://pragprog.com/articles/tell-dont-ask) principle. Therefor, we can mock the view's interface, provide that to the controller, and verify in our [step definitions](https://github.com/techtalk/SpecFlow/wiki/Step-Definitions) that the view received the correct messages.
+
