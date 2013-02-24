@@ -19,3 +19,7 @@ We can do better.
 		In order to obtain faster feedback on a feature
     	As a developer
     	I want to automate the execution of the acceptance tests
+
+As I mentioned, the application that my team works on is a *very* legacy application. It was initially authored in a database-first style; data transfer objects were generated from the schema. We've put a halt to this practice, but it was in use for almost 7 years before that. Suffice it to say that, in addition to the legacy code, we are left with a substantial legacy database. One of the first things I did when I joined the team was to get the schema under source control. 
+
+Having dabbled in Rails, I loved the idea of having a set of database migrations that evolved the schema of the database over time. I chose to use [RoundhousE](https://github.com/chucknorris/roundhouse/wiki), because it uses native SQL to express the migrations. I also liked that it could create a new database by first restoring a SQL Server backup, then playing the migrations over that. This allowed me to draw a line in the sand; from the time of the backup I took forward, all changes to the database schema would be expressed as migration scripts and stored with the source code to the application.
