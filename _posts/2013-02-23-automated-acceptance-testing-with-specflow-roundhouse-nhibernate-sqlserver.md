@@ -53,9 +53,8 @@ This leaves us with having a fresh database for each scenario. Fortunately, Spec
 
 We can do better.
 
-<iframe width="420" height="315" src="https://www.youtube-nocookie.com/embed/pdz5kCaCRFM" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+Can we pay the restore & migrate penalty just once? **Sure can!**
 
-Can we pay the restore & migrate penalty just once? Sure can! 
 How can we do that while providing a clean database for each scenario?
 
 We use SQL Server. SQL Server provides the ability to [Detach and Attach the data files](http://msdn.microsoft.com/en-us/library/ms190794.aspx) for a database. We could restore & migrate an example database once, detach it, copy the MDF files to another location, and reattach the example in a BeforeTestRun hook. Then, we can use the BeforeScenario hook and information contained in the [ScenarioContext](https://github.com/techtalk/SpecFlow/wiki/ScenarioContext) to copy the template MDF to a new file and attach that as a new database specifically for the scenario. This is **orders of magnitude faster** than the restore & migrate method. We can then clean up the databases in the AfterScenario hooks, and clean up everything in the AfterTestRun hook.
