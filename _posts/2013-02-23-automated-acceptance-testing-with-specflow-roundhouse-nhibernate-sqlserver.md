@@ -53,7 +53,7 @@ This leaves us with having a fresh database for each scenario. Fortunately, Spec
 
 We can do better.
 
-<iframe width="420" height="315" src="https://www.youtube-nocookie.com/embed/pdz5kCaCRFM" frameborder="0" allowfullscreen></iframe>
+<iframe width="420" height="315" src="https://www.youtube-nocookie.com/embed/pdz5kCaCRFM" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 
 Can we pay the restore & migrate penalty just once? Sure can! 
 How can we do that while providing a clean database for each scenario?
