@@ -47,4 +47,19 @@ What about the database, though? Well, we'd like to test as much of the stack, f
 
 The most certain way is to provide a clean database for each scenario. Running each scenario in a transaction is out, as our current architecture allows, nay encourages, Command objects, described by [Ayende's blog series on Limiting Abstractions](http://ayende.com/blog/154209/limit-your-abstractions-refactoring-toward-reduced-abstractions), to manage their own transactions. We could probably refactor out a Command Executor object that manages the transactions for the commands, and remove transactions from all commands. That way, we could inject an executor for tests that noops on commit, but have runtime one that does a real commit. However, that's a daunting task due to the sheer number of commands in the system. I'm also not certain that I see the value in it.
 
+###The Hook Brings you Back
+
+<iframe width="420" height="315" src="https://www.youtube-nocookie.com/embed/pdz5kCaCRFM" frameborder="0" allowfullscreen></iframe>
+
 This leaves us with having a fresh database for each scenario. Fortunately, SpecFlow [provides hooks](https://github.com/techtalk/SpecFlow/wiki/Hooks) for interresting events in the test lifecycle. One such pair is BeforeScenario/AfterScenario. With this, we can create a new database for the scenario before it runs. RoundhousE makes this easy. We can restore our backup to a new database and run the scripts on that. One problem: the restore & migrate process take about 33 seconds(!) on my dev machine (Core i7 Quad with an OWC Mercury Extreme Pro 6G SSD). Multiple minutes *per feature* spent just on *creating the database* is simply not acceptable.
+
+We can do better.
+
+Can we pay the restore & migrate penalty just once? Sure can! 
+How can we do that while providing a clean database for each scenario?
+
+We use SQL Server. SQL Server provides the ability to [Detach and Attach the data files](http://msdn.microsoft.com/en-us/library/ms190794.aspx) for a database. We could restore & migrate an example database once, detach it, copy the data files to another location, and reattach the example in a BeforeTestRun hook. Then, we can use the BeforeScenario hook and information conatined in the [ScenarioContext](https://github.com/techtalk/SpecFlow/wiki/ScenarioContext) to copy the template MDF to a new file and attach that as a new database specifically for the scenario. This is **orders of magnitude faster** than the restore & migrate method.
+
+Here's the code to do this:
+
+<script src="https://gist.github.com/hotgazpacho/5022723.js"></script>
