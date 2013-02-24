@@ -1,9 +1,8 @@
 ---
 layout: post
+title: Automated Acceptance Testing with SpecFlow, RoundhousE, NHibernate, & SQL Server
 published: true
 ---
-
-#Automated Acceptance Testing with SpecFlow, RoundhousE, NHibernate, & SQL Server
 
 ##What? Why?
 
