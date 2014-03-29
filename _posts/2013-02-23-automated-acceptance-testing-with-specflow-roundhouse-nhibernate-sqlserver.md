@@ -63,4 +63,4 @@ And what about NHibernate? Creating the SessionFactory is an expensive (though n
 
 Put it all together, and here's the code:
 
-<script src="https://gist.github.com/hotgazpacho/5022723.js"><!--TestEnvironment.cs--></script>
+<script src="https://gist.github.com/hotgazpacho/5022723.js"></script>
