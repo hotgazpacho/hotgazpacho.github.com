@@ -62,3 +62,4 @@ kramdown:
     coderay_css: style
 
 exclude: config.rb
+include: [".well-known"]
