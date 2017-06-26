@@ -1,7 +1,8 @@
 ---
 layout: default
-title: about page for h5bp jekyll template
+title: About
 permalink: about
 ---
-# about page for h5bp jekyll template
-about-y
+# About
+
+PGP fingerprint: `592F 7092 3482 73D1 9A93  AC71 BE9E E476 A496 3F63` [download](/.well-known/pgp.asc)
