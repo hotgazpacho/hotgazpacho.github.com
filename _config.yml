@@ -9,7 +9,7 @@ plugins:     ./_plugins
 future:      true
 lsi:         false
 pygments:    false
-markdown:    maruku
+markdown:    kramdown
 permalink:   /:year/:month/:title
 #
 # https://github.com/mojombo/jekyll/wiki/Permalinks
@@ -20,7 +20,7 @@ permalink:   /:year/:month/:title
 # month  Month from the post’s filename
 # day  Day from the post’s filename
 # title  Title from the post’s filename
-# categories   The specified categories for this post. Jekyll automatically parses out double slashes in the URLs, so if no categories are present, it basically ignores this.   
+# categories   The specified categories for this post. Jekyll automatically parses out double slashes in the URLs, so if no categories are present, it basically ignores this.
 
 # Built-in styles
 # Name  Template
@@ -50,7 +50,7 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..6
   use_coderay: false
-  
+
   coderay:
     coderay_wrap: div
     coderay_line_numbers: inline
