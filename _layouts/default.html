@@ -6,12 +6,6 @@
     <div id="home">
     <div id="main" role="main">
       {{ content }}
-      <h3>Blog Posts</h3>          
-      <ul>
-        {% for post in site.posts %}
-          <li{% if page.url == post.url %} class="active"{% endif %}><a href="{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
-      </ul>
     </div>
     <div id="sidebar">
         <!--<li id="rssfeeds">Subscribe: <a
@@ -52,7 +46,7 @@
       </aside>
     </div>
     </div>
-    <footer>        
+    <footer>
       <h3>Site Pages</h3>
       <ul>
         <li><a href="/" rel="home">Home</a></li>
@@ -65,7 +59,7 @@
       </p>
     </footer>
   </div> <!--! end of #container -->
-{% include scripts.html %}	        
+{% include scripts.html %}
 {% include analytics.html %}
 {% include chromeframe.html %}
 </body>
