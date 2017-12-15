@@ -6,60 +6,46 @@ I hereby claim:
 
   * I am an admin of http://hotgazpacho.org
   * I am hotgazpacho (https://keybase.io/hotgazpacho) on keybase.
-  * I have a public key with fingerprint 592F 7092 3482 73D1 9A93  AC71 BE9E E476 A496 3F63
+  * I have a public key ASD-F8Zwuqj810jqflC8jyXVzM0jbeUA5z_HI9VF8xWcOgo
 
-To claim this, I am signing this object:
+To do so, I am signing this object:
 
 {
-    "body": {
-        "key": {
-            "fingerprint": "592f7092348273d19a93ac71be9ee476a4963f63",
-            "host": "keybase.io",
-            "key_id": "BE9EE476A4963F63",
-            "uid": "e144a5853be13a576ebc7b3a82d1a100",
-            "username": "hotgazpacho"
-        },
-        "service": {
-            "hostname": "hotgazpacho.org",
-            "protocol": "http:"
-        },
-        "type": "web_service_binding",
-        "version": 1
+  "body": {
+    "key": {
+      "eldest_kid": "0101861f6609f3b93ed297d9df998d16937a3f3d79d07cd607579af25858bbf74b210a",
+      "host": "keybase.io",
+      "kid": "0120fe17c670baa8fcd748ea7e50bc8f25d5cccd236de500e73fc723d545f3159c3a0a",
+      "uid": "e144a5853be13a576ebc7b3a82d1a100",
+      "username": "hotgazpacho"
     },
-    "ctime": 1396103923,
-    "expire_in": 157680000,
-    "prev": "08b2f2a3dad1b0f4d250813549d967af51f6ca39cd2ee4422065c5f96767afc7",
-    "seqno": 14,
-    "tag": "signature"
+    "merkle_root": {
+      "ctime": 1513341232,
+      "hash": "f3d706e27c2512674ef6eeec7702919a0bea80685e90e13b87c17ae725e5c3769f1dca434cf1a93a8b837b982049835cc77b1d4d8cb937eb0e21b8073c0fa718",
+      "hash_meta": "6d8441c9f05e11412c07730b7831435639b4ee0ae3f38e3d2f46283057629eed",
+      "seqno": 1822973
+    },
+    "service": {
+      "hostname": "hotgazpacho.org",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.37"
+  },
+  "ctime": 1513341247,
+  "expire_in": 504576000,
+  "prev": "cd25e9fa04337cd26877f70f63f5ec4dff277db1b8c7ed48d4b4be28dd0d1684",
+  "seqno": 51,
+  "tag": "signature"
 }
 
-with the aforementioned key, yielding the PGP signature:
+which yields the signature:
 
------BEGIN PGP MESSAGE-----
-Comment: GPGTools - https://gpgtools.org
-
-owGbwMvMwMXI5sZyZ5l1+zLG0wd+JDEEm936XK2UlJ9SqWRVrZSdCqbSMvPSU4sK
-ijLzSpSslEwtjdLMDSyNjE0sjMyNUwwtEy2NE5PNDZNSLVNTTczNEk0szYzTzIyV
-dJQy8otBOoDGJCUWp+pl5gPFgJz4zBSgqJOrpasrUL0jSL0bWH0pWCLV0MQk0dTC
-1Dgp1dA40dTcLDUp2TzJONHCKMUw0dDAAKSwOLUoLzE3Fag6I78kPbGqIDE5I1+p
-VkcJKFGWmZwKcjbIdkxFevlF6UATCoryS/KT83NAkiUlBVYgvSWVBSDF5alJ8VBj
-4pMy81KAvgdqKEstKs7Mz1OyMgSqTC7JBJlraGxpZmhgDAwLHaXUioLMotT4TJAK
-oJstDIAAZE1qGdBIA4skozSjROOUxBTDJIM0kxQjUwMLQ2NTE8sUSzPzxDRTwzSz
-5ERjy+QUI2AYmhgZGZiZJpumAeVAssnmSiCPFeblA802AbozMR1oZnFmel5iSWlR
-qlJtJ5MMCwMjFwMbKxMoAhm4OAVg0Sp3VYBh1s3FtTPYNu/fGRww1+SBpuoOs4aO
-BCuvtlln58x30D1YcNj37pT3kryHma589N2+/2XV1IgpSk1PuMUXN09LfDjFQy1N
-arPqq85D97psPkgp7aydFpq1J+VQFGf3NBeFiUJbVcu/Btet9mKL7r21aEZMuvW6
-to27twtFswhsM7uYwbD9jEtSwbSloctlr4QxHTO6qub1869OaNdFl9hHEtphq07E
-bd/77lz9tunlCe3BS677/LXr9k5RMn6TE/5euzbl+MpTxcvkNplfST6vpWaeuCQp
-XVWhou6W4f++F78f6XwxfsEos9gufMWK6HSprZtdF4TlVOp6ck0seM59p13czPpR
-QkEfF6foJoYUsb3ndry5u+5nQeOhH2tcWax1oqb9nrOqvvFesa7/tOlbpCZIv/9y
-ZUFQ/JpXTtWFGQnqzw86ZAhLcT/67eAWeebdj/LARPF17ldCJzM5RJTK/30nc+T7
-7tmzfrLy/lilZyRhsy71qVaPwVvba3Ncn1wR0m39F/buZaYmr6W/IafnvUteT7Xa
-8/cKHXvAfL7q0HuVjfH7j98uD5N3X2Dz+b5TwKeW13/DPAzr+W5OXLJRY0JEWHfq
-3Xy+az5vb7b958o4xrdAP164s2vCK/0fnmruex7dP3A+6h6fRcMjnviSNPsrK3SD
-0xpZW+aI7nqfeC/Fefb3r5d2muvbNBzw0dL+H8/ZacGz7/MsaTUA
-=47Zl
------END PGP MESSAGE-----
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg/hfGcLqo/NdI6n5QvI8l1czNI23lAOc/xyPVRfMVnDoKp3BheWxvYWTFA0p7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxODYxZjY2MDlmM2I5M2VkMjk3ZDlkZjk5OGQxNjkzN2EzZjNkNzlkMDdjZDYwNzU3OWFmMjU4NThiYmY3NGIyMTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwZmUxN2M2NzBiYWE4ZmNkNzQ4ZWE3ZTUwYmM4ZjI1ZDVjY2NkMjM2ZGU1MDBlNzNmYzcyM2Q1NDVmMzE1OWMzYTBhIiwidWlkIjoiZTE0NGE1ODUzYmUxM2E1NzZlYmM3YjNhODJkMWExMDAiLCJ1c2VybmFtZSI6ImhvdGdhenBhY2hvIn0sIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNTEzMzQxMjMyLCJoYXNoIjoiZjNkNzA2ZTI3YzI1MTI2NzRlZjZlZWVjNzcwMjkxOWEwYmVhODA2ODVlOTBlMTNiODdjMTdhZTcyNWU1YzM3NjlmMWRjYTQzNGNmMWE5M2E4YjgzN2I5ODIwNDk4MzVjYzc3YjFkNGQ4Y2I5MzdlYjBlMjFiODA3M2MwZmE3MTgiLCJoYXNoX21ldGEiOiI2ZDg0NDFjOWYwNWUxMTQxMmMwNzczMGI3ODMxNDM1NjM5YjRlZTBhZTNmMzhlM2QyZjQ2MjgzMDU3NjI5ZWVkIiwic2Vxbm8iOjE4MjI5NzN9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoiaG90Z2F6cGFjaG8ub3JnIiwicHJvdG9jb2wiOiJodHRwOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4zNyJ9LCJjdGltZSI6MTUxMzM0MTI0NywiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiJjZDI1ZTlmYTA0MzM3Y2QyNjg3N2Y3MGY2M2Y1ZWM0ZGZmMjc3ZGIxYjhjN2VkNDhkNGI0YmUyOGRkMGQxNjg0Iiwic2Vxbm8iOjUxLCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQM2hx8HfuXfkWHUYiV3rn8iRS1ea/2dkrELvzgkDbAf+eaeM1lmW/AqqNqYKyZ8Bqv5xR3hFUCe+g3uewA6Degqoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCAIE6up5rrf5sZiUy45Bdm89S2pcmCNw8ZQFlSkRIPIAqN0YWfNAgKndmVyc2lvbgE=
 
 And finally, I am proving ownership of this host by posting or
 appending to this document.
